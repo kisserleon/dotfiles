@@ -1,0 +1,246 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle 的配置 以及例子
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 常用命令
+" :PluginList       - 查看已经安装的插件
+" :PluginInstall    - 安装插件
+" :PluginUpdate     - 更新插件
+" :PluginSearch     - 搜索插件，例如 :PluginSearch xml就能搜到xml相关的插件
+" :PluginClean      - 删除插件，把安装插件对应行删除，然后执行这个命令即可
+" h: vundle         - 获取帮助
+
+
+" 已使用快捷键
+"
+" <F1>            Turn on/update highlighting for all lines with markers
+" <F2>            Turn off highlighting for lines with markers
+" <SHIFT-F2> Erase all markers [a-z]
+" <F5>             Add a mark on the current line (and highlight)
+" <SHIFT-F5> Remove the mark on the current line
+"
+"
+
+if &compatible
+  set nocompatible
+end
+
+" required!
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+
+
+" vim颜色方案
+Plugin 'tomasr/molokai'
+Plugin 'vim-scripts/phd'
+Plugin 'flazz/vim-colorschemes'
+" 改变颜色
+Plugin 'chxuan/change-colorscheme'
+
+
+" 显示各个打开文件的状态插件，对于同时编辑多个文件的情况下，非常有用。
+" 漂亮的状态栏支持"
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+
+" 这也是一个神器插件，能够自动对各种语言进行语法检查，对保持一个良好的代码风格很有帮助。
+""Plugin 'https://github.com/scrooloose/syntastic.git'
+
+
+"  代码片段的插件，能够根据你输入的代码片段进行自动不足。还能设置自定义代码片段进行补足。
+"Plugin 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+" https://github.com/sirver/ultisnips
+" 同样是代码插件，包含了大量预定义的代码片段。
+Plugin 'honza/vim-snippets'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+
+" 文档目录浏览插件，支持绝大部分文件类型，包括Python，markdown等文件格式。
+" 在我的配置文件中，常用的Python、markdown、tex等文件类型自动启用该插件。
+Plugin 'vim-scripts/VOoM'
+
+
+" 显示各级缩进的插件，对于像Python这样利用缩进排版的语言特别有用，不可或缺。
+Plugin 'Yggdroot/indentLine'
+
+
+" Javascript的语法辅助插件
+Plugin 'https://github.com/pangloss/vim-javascript.git'
+
+
+" 快速注释和解开注释
+Plugin 'scrooloose/nerdcommenter'
+
+
+" git插件 https://github.com/tpope/vim-fugitive
+Plugin 'tpope/vim-fugitive'
+" Gedit, Gdiff, Gstatus, Gcommit etc...
+
+
+" ctrlp 文件搜索
+Plugin 'ctrlpvim/ctrlp.vim'
+""Run :CtrlP or :CtrlP [starting-directory] to invoke CtrlP in find file mode.
+""Run :CtrlPBuffer or :CtrlPMRU to invoke CtrlP in find buffer or find MRU file mode.
+""Run :CtrlPMixed to search in Files, Buffers and MRU files at the same time.
+""Check :help ctrlp-commands and :help ctrlp-extensions for other commands.
+
+
+" 目标比较
+" Usage :DirDiff <dir1> <dir2>
+Plugin 'will133/vim-dirdiff'
+
+
+" 颜色预览
+Plugin 'https://github.com/gorodinskiy/vim-coloresque.git'
+
+
+" 同时highlight所有 pattern match
+Plugin 'haya14busa/incsearch.vim'
+
+
+" 自动匹配括号引号，自动添加删除，跳转，还支持''', """, ```
+Plugin 'jiangmiao/auto-pairs'
+
+
+" 批量注释插件 gc/gcgc
+Plugin 'tpope/vim-commentary'
+" Use gcc to comment out a line (takes a count), gc to comment out the target of a motion (for example, gcap to comment out a paragraph), gc in visual mode to comment out the selection, and gc in operator pending mode to target a comment. You can also use it as a command, either with a range like :7,17Commentary, or as part of a :global invocation like with :g/TODO/Commentary. That's it.
+
+
+" .应该是重复之前的操作，有了这个plugin，可以使.支持plugin map
+Plugin 'tpope/vim-repeat.git'
+
+
+" vim surrounding操作，比如替换双引号为单引号，或者括号，或者html标记
+Plugin 'tpope/vim-surround'
+
+
+" example of vim-surround
+" cs为替换 ds为删除 ys为添加
+"
+""Press cs"' inside "Hello world!" -> 'Hello world!'
+""Now press cs'<q> -> <q>Hello world!</q>
+""To go full circle, press cst" to get "Hello world!"
+""To remove the delimiters entirely, press ds". -> Hello world!
+""Now with the cursor on "Hello", press ysiw] (iw is a text object). -> [Hello] world!
+""Let's make that braces and add some space (use } instead of { for no space): cs]{ -> { Hello } world!
+""Now wrap the entire line in parentheses with yssb or yss). -> ({ Hello } world!)
+""Revert to the original text: ds{ds) -> Hello world!
+""Emphasize hello: ysiw<em> -> <em>Hello</em> world!
+""
+""Finally, let's try out visual mode. Press a capital V (for linewise visual mode) followed by S<p class="important">.
+""<p class="important">
+""  <em>Hello</em> world!
+""</p>
+" 添加: csw": Hello -> "Hello"
+" 添加-整行: yss": -> Hello world -> "Hello world"
+" 添加双引号两行 ySS"
+" Hello world ->
+" "
+"    hello world
+" "
+"
+" 添加-两个词: veeS": hello world -> "hello world"
+" 添加-当前到行尾: ys$"
+" 左符号/右符号 => 带不带空格
+" cs([: (hello) -> [ hello ]
+" cs(]: (hello) -> [hello]
+"
+
+
+" powerline
+Plugin 'powerline/powerline'
+
+
+" 快速跳转
+Plugin 'easymotion/vim-easymotion'
+" 快捷键<leader><leader>w(即,,w)和<leader><leader>b(即,,b)
+
+
+" 显示缩进对齐线
+Plugin 'nathanaelkane/vim-indent-guides'
+
+
+" 按tab完成输入
+"Plugin 'https://github.com/ervandew/supertab.git'
+
+
+" BookMark相关操作
+Plugin 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
+" USAGE:
+" <F1>            Turn on/update highlighting for all lines with markers
+" <F2>            Turn off highlighting for lines with markers
+" <SHIFT-F2> Erase all markers [a-z]
+" <F5>             Add a mark on the current line (and highlight)
+" <SHIFT-F5> Remove the mark on the current line
+" Then, just jump from one mark to the next using the classic [' and ]' jumps
+
+
+" 显示文件目录树
+Plugin 'scrooloose/nerdtree'
+
+
+" Elegant buffer explorer - takes very little screen space
+Plugin 'fholgado/minibufexpl.vim'
+
+
+" 快速选择
+" https://github.com/gcmt/wildfire.vim
+Plugin 'gcmt/wildfire.vim'
+
+
+" 运行交互式的shell
+" :RunInInteractiveShell git update
+Plugin 'christoomey/vim-run-interactive'
+
+
+" rename文件名
+" :rename[!] {newname}
+Plugin 'danro/rename.vim'
+
+
+" 支持coffee script
+Plugin 'kchmck/vim-coffee-script'
+
+
+" 创建文件目录
+" :e this/does/not/exist/file.txt
+" :w
+Plugin 'pbrisbin/vim-mkdir'
+
+
+" emmet用于html编辑
+" <c-y>,
+" https://github.com/mattn/emmet-vim
+Plugin 'mattn/emmet-vim'
+
+
+" Python all in one
+" Plugin 'https://github.com/python-mode/python-mode.git'
+
+
+" 自动完成 提示
+" Plugin 'Valloric/YouCompleteMe'
+
+
+" Plugin 'suan/vim-instant-markdown'	" 即时显示markdown结果
+" Plugin 'derekwyatt/vim-fswitch' 		" switch .h and .cpp
+" Plugin 'https://github.com/vim-scripts/bbye.git'
+
+
+call vundle#end()
+
+
+"f filereadable(expand("~/.vimrc.bundles.local"))
+"  source ~/.vimrc.bundles.local
+"endif
+
+
+filetype on
+filetype plugin indent on     " required!
